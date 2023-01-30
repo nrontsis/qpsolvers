@@ -20,7 +20,6 @@
 
 """Tests for the `solve_problem` function."""
 
-import math
 import unittest
 
 import numpy as np
@@ -149,7 +148,7 @@ class TestSolveProblem(unittest.TestCase):
             ref_solution = get_qpsut03()
             problem = ref_solution.problem
             solution = solve_problem(problem, solver=solver)
-            self.assertFalse(math.isnan(solution.duality_gap()))
+            self.assertFalse(np.isfinite(solution.duality_gap()))
 
         return test
 
