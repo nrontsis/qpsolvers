@@ -148,7 +148,7 @@ class TestSolveProblem(unittest.TestCase):
             ref_solution = get_qpsut03()
             problem = ref_solution.problem
             solution = solve_problem(problem, solver=solver)
-            self.assertFalse(np.isfinite(solution.duality_gap()))
+            self.assertTrue(np.isfinite(solution.duality_gap()))
 
         return test
 
