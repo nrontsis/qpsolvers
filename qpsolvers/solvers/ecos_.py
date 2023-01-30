@@ -41,6 +41,7 @@ from ..conversions import (
     socp_from_qp,
     split_dual_linear_box,
 )
+from ..exceptions import ProblemError
 from ..problem import Problem
 from ..solution import Solution
 
@@ -90,6 +91,13 @@ def ecos_solve_problem(
     -------
     :
         Solution to the QP, if found, otherwise ``None``.
+
+    Raises
+    ------
+    ProblemError :
+        If the problem is ill-formed in some way, for instance if the cost
+        matrix is not positive definite, or inequality constraints contain
+        infinite values that the solver doesn't handle.
 
     Notes
     -----
@@ -146,6 +154,11 @@ def ecos_solve_problem(
         result = solve(c_socp, G_socp, h_socp, dims, **kwargs)
     flag = result["info"]["exitFlag"]
     if flag != 0:
+        if flag == -1 and h is not None and not np.isfinite(h).all():
+            raise ProblemError(
+                "ECOS does not handle infinite values in inequality vectors, "
+                "try clipping them to a finite value suitable to your problem"
+            )
         meaning = __exit_flag_meaning__.get(flag, "unknown exit flag")
         warnings.warn(f"ECOS returned exit flag {flag} ({meaning})")
         return Solution(problem)

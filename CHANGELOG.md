@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+- ECOS: raise a ProblemError if the cost matrix is not positive definite
+- ECOS: raise a ProblemError if inequality vectors contain infinite values
+
 ## [2.7.4] - 2023/01/31
 
 ### Fixed
