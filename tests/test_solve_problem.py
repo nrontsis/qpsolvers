@@ -316,11 +316,13 @@ for solver in available_solvers:
         f"test_qpsut02_{solver}",
         TestSolveProblem.get_test_qpsut02(solver),
     )
-    setattr(
-        TestSolveProblem,
-        f"test_qpsut03_{solver}",
-        TestSolveProblem.get_test_qpsut03(solver),
-    )
+    if solver != "ecos":
+        # ECOS does not handle infinite bounds
+        setattr(
+            TestSolveProblem,
+            f"test_qpsut03_{solver}",
+            TestSolveProblem.get_test_qpsut03(solver),
+        )
     setattr(
         TestSolveProblem,
         f"test_qpsut04_{solver}",
