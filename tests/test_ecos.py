@@ -21,6 +21,10 @@
 import unittest
 import warnings
 
+import numpy as np
+
+from qpsolvers.exceptions import ProblemError
+
 from .problems import get_sd3310_problem
 
 try:
@@ -33,6 +37,14 @@ try:
             problem = get_sd3310_problem()
             P, q, G, h, A, b, lb, ub = problem.unpack()
             self.assertIsNotNone(ecos_solve_qp(P, q, G, h, A, b, lb, ub))
+
+        def test_infinite_inequality(self):
+            problem = get_sd3310_problem()
+            P, q, G, h, A, b, _, _ = problem.unpack()
+            lb = np.array([-1.0, -np.inf, -1.0])
+            ub = np.array([np.inf, 1.0, 1.0])
+            with self.assertRaises(ProblemError):
+                ecos_solve_qp(P, q, G, h, lb=lb, ub=ub)
 
 
 except ImportError:  # solver not installed
