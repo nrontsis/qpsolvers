@@ -2,11 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.8.0] - 2023/02/27
-
-### Added
-
-- New solver: [Clarabel](https://github.com/oxfordcontrol/Clarabel.rs)
+## Unreleased
 
 ### Added
 
@@ -19,10 +15,19 @@ All notable changes to this project will be documented in this file.
 - CVXOPT: rethrow ``ValueError`` as either ``ProblemError`` or ``SolverError``
 - Checking ``Solution.is_empty`` becomes ``not Solution.found``
 - Install open source solvers with wheels by default
-- Move documentation to [GitHub Pages](https://qpsolvers.github.io/qpsolvers/)
-- Remove Python 2 installation instructions
 - Remove ``solve_safer_qp``
 - Remove ``sym_proj`` parameter
+
+## [2.8.0] - 2023/02/27
+
+### Added
+
+- New solver: [Clarabel](https://github.com/oxfordcontrol/Clarabel.rs)
+
+### Changed
+
+- Move documentation to [GitHub Pages](https://qpsolvers.github.io/qpsolvers/)
+- Remove Python 2 installation instructions
 
 ## [2.7.4] - 2023/01/31
 
